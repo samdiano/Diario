@@ -88,6 +88,24 @@ class EntriesController {
       message: 'Entry updated successfully'
     });
   }
+  // remove entry
+  static removeEntry(req, res) {
+    const entry = entries.find(c => c.id === parseInt(req.params.id, 10));
+    if (!entry) {
+      return res.status(404).json({
+        message: 'Entry does not exist',
+        status: 'error'
+      });
+    }
+    const index = entries.indexOf(entry);
+    entries.splice(index, 1);
+
+    return res.status(200).json({
+      entry,
+      status: 'Success',
+      message: 'Entry deleted successfully'
+    });
+  }
 }
 
 export default EntriesController;
