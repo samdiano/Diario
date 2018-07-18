@@ -3,6 +3,14 @@ import chaiHttp from 'chai-http';
 import server from '../app';
 
 chai.use(chaiHttp);
+
+const entry = {
+  userId: 8,
+  title: 'The day I first ....',
+  body: 'Paragraph ...',
+  date: '5-7-2019'
+};
+
 describe('Entries', () => {
   it('should return welcome message', (done) => {
     chai.request(server)
@@ -49,6 +57,35 @@ describe('Entries', () => {
         expect(res.status).to.equal(404);
         expect(res.body).to.have.property('message');
         expect(res.body).to.have.property('status').equal('error');
+        done();
+      });
+  });
+  it('Should post an entry', (done) => {
+    chai.request(server)
+      .post('/api/v1/entries')
+      .send(entry)
+      .end((err, res) => {
+        expect(res.status).to.equal(201);
+        expect(res.body.entry).to.have.property('title').equal(entry.title);
+        expect(res.body.entry).to.have.property('body').equal(entry.body);
+        expect(res.body.entry).to.have.property('userId').equal(entry.userId);
+        expect(res.body.entry).to.have.property('date').equal(entry.date);
+        expect(res.body).to.have.property('status').equal('Success');
+        done();
+      });
+  });
+  it('Should not post an entry with incomplete fields', (done) => {
+    chai.request(server)
+      .post('/api/v1/entries')
+      .send({
+        userId: 8,
+        title: 'The day I first ....',
+        body: 'Paragraph ...',
+      })
+      .end((err, res) => {
+        expect(res.status).to.equal(400);
+        expect(res.body).to.have.property('message');
+        expect(res.body).to.have.property('status').equal('Failed');
         done();
       });
   });
