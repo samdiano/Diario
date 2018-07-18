@@ -58,6 +58,36 @@ class EntriesController {
       message: 'Entry added successfully'
     });
   }
+  // modify fields in an entry
+  static updateEntry(req, res) {
+    const entry = entries.find(c => c.id === parseInt(req.params.id, 10));
+    if (!entry) {
+      return res.status(404).json({
+        message: 'Entry does not exist',
+        status: 'error'
+      });
+    }
+    const {
+      title, body, date, userId
+    } = req.body;
+    const { error } = validateEntry(req.body);
+    if (error) {
+      return res.status(400).json({
+        message: error.details[0].message,
+        status: 'Failed'
+      });
+    }
+    entry.title = title;
+    entry.body = body;
+    entry.date = date;
+    entry.userId = userId;
+
+    return res.status(200).json({
+      entry,
+      status: 'Success',
+      message: 'Entry updated successfully'
+    });
+  }
 }
 
 export default EntriesController;
