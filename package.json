@@ -1,0 +1,44 @@
+{
+  "name": "diario",
+  "version": "1.0.0",
+  "description": "Diary App",
+  "main": "app.js",
+  "scripts": {
+    "build": "cross-env NODE_ENV=development babel app.js",
+    "dev-server": "cross-env NODE_ENV=development nodemon --exec babel-node app.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "dependencies": {
+    "babel-cli": "^6.26.0",
+    "babel-core": "^6.26.3",
+    "babel-polyfill": "^6.26.0",
+    "babel-preset-env": "^1.7.0",
+    "babel-register": "^6.26.0",
+    "body-parser": "^1.18.3",
+    "config": "^1.30.0",
+    "cross-env": "^5.1.5",
+    "debug": "^3.1.0",
+    "express": "^4.16.3",
+    "express-async-errors": "^3.0.0",
+    "helmet": "^3.12.1",
+    "morgan": "^1.9.0",
+    "pg": "^7.4.3",
+    "winston": "2.4.0"
+  },
+  "devDependencies": {
+    "babel-plugin-add-module-exports": "^0.2.1",
+    "babel-plugin-istanbul": "^4.1.6",
+    "babel-plugin-transform-object-rest-spread": "^6.26.0",
+    "nodemon": "^1.17.5"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/samdiano/Diario.git"
+  },
+  "author": "Samuel George",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/samdiano/Diario/issues"
+  },
+  "homepage": "https://github.com/samdiano/Diario#readme"
+}
