@@ -89,4 +89,46 @@ describe('Entries', () => {
         done();
       });
   });
+  it('Should update an entry', (done) => {
+    chai.request(server)
+      .put('/api/v1/entries/1')
+      .send(entry)
+      .end((err, res) => {
+        expect(res.body.message).to.equal('Entry updated successfully');
+        expect(res.status).to.equal(200);
+        expect(res.body.entry).to.have.property('title').equal(entry.title);
+        expect(res.body.entry).to.have.property('body').equal(entry.body);
+        expect(res.body.entry).to.have.property('userId').equal(entry.userId);
+        expect(res.body.entry).to.have.property('date').equal(entry.date);
+        expect(res.body.entry).to.have.property('id').equal(1);
+        expect(res.body).to.have.property('status').equal('Success');
+        done();
+      });
+  });
+  it('Should not update an entry with an invalid ID', (done) => {
+    chai.request(server)
+      .put('/api/v1/entries/35')
+      .send(entry)
+      .end((err, res) => {
+        expect(res.status).to.equal(404);
+        expect(res.body).to.have.property('message').equal('Entry does not exist');
+        expect(res.body).to.have.property('status').equal('error');
+        done();
+      });
+  });
+  it('Should not update an entry with incomplete fields', (done) => {
+    chai.request(server)
+      .put('/api/v1/entries/1')
+      .send({
+        userId: 8,
+        title: 'The day I first ....',
+        body: 'Paragraph ...',
+      })
+      .end((err, res) => {
+        expect(res.status).to.equal(400);
+        expect(res.body).to.have.property('message');
+        expect(res.body).to.have.property('status').equal('Failed');
+        done();
+      });
+  });
 });
