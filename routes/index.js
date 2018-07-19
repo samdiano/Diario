@@ -12,6 +12,7 @@ const routes = (app) => {
   app.get('/api/v1/entries/:id', entries.getEntry);
   app.post('/api/v1/entries', entries.addEntry);
   app.put('/api/v1/entries/:id', entries.updateEntry);
+  app.delete('/api/v1/entries/:id', entries.removeEntry);
 };
 
 export default routes;
