@@ -12,8 +12,7 @@ app.use(morgan('tiny'));
 
 const logger = new (winston.Logger)({
     transports: [
-             new (winston.transports.Console)({ level: 'info' }),
-              new (winston.transports.File)({ filename: 'log-file.log' })
+             new (winston.transports.Console)({ level: 'info' })
      ]
     });
 

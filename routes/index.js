@@ -9,6 +9,7 @@ const routes = (app) => {
   });
   // Entry routes
   app.get('/api/v1/entries', entries.getAllEntries);
+  app.get('/api/v1/entries/:id', entries.getEntry);
 };
 
 export default routes;
