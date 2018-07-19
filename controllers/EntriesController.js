@@ -1,4 +1,15 @@
+import Joi from 'joi';
 import entries from '../model/entries';
+
+const validateEntry = (entry) => {
+  const schema = {
+    title: Joi.string().min(3).trim().required(),
+    body: Joi.string().min(3).trim().required(),
+    userId: Joi.number().min(1).required(),
+    date: Joi.date().required()
+  };
+  return Joi.validate(entry, schema);
+};
 
 class EntriesController {
   // get all entries
@@ -20,6 +31,31 @@ class EntriesController {
     return res.status(200).json({
       entry,
       status: 'Success'
+    });
+  }
+  static addEntry(req, res) {
+    const {
+      title, body, date, userId
+    } = req.body;
+    const { error } = validateEntry(req.body);
+    if (error) {
+      return res.status(400).json({
+        message: error.details[0].message,
+        status: 'Failed'
+      });
+    }
+    const entry = {
+      id: entries.length + 1,
+      title,
+      body,
+      date,
+      userId
+    };
+    entries.push(entry);
+    return res.status(201).json({
+      entry,
+      status: 'Success',
+      message: 'Entry added successfully'
     });
   }
 }
