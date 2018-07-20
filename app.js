@@ -4,17 +4,17 @@ import winston from 'winston';
 import bodyParser from 'body-parser';
 import routes from './routes';
 
-const port = process.env.PORT || 5000;
+const port = process.env.PORT || 8000;
 const app = express();
 
 // log every request to
 app.use(morgan('tiny'));
 
 const logger = new (winston.Logger)({
-    transports: [
-             new (winston.transports.Console)({ level: 'info' })
-     ]
-    });
+  transports: [
+    new (winston.transports.Console)({ level: 'info' })
+  ]
+});
 
 // parse incoming request data
 app.use(bodyParser.json());
