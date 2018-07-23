@@ -56,6 +56,7 @@ API is deployed at [https://mi-diario.herokuapp.com/api/v1/](https://mi-diario.h
 		<td>Delete an entry</td>
 	</tr>
 </table>
+
 ## Technologies
 
 * [NodeJS](https://nodejs.org/) - Runtime Environment
