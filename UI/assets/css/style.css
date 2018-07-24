@@ -24,14 +24,13 @@ body {
     display: block;
     color: #f2f2f2;
     text-align: center;
-    padding: 14px 16px;
+    padding: 16px 16px;
     text-decoration: none;
     font-size: 17px;
 }
 
 /* Change the color of links on hover */
 .topnav a:hover {
-    background-color: #ddd;
     color: black;
 }
 
@@ -315,20 +314,17 @@ a {
     .image {
         margin-left: 10%;
         margin-right: 10%;
-        padding: 5em 5em 10em 5em;
-        
-        background: url("../img/sheet.png") no-repeat;
+        padding:0 5em 10em 5em;
         overflow: auto;
         height: auto;
-        background-size: 100% 100%;
     }
     .image h1, h2, h3 {
-        color: black;
+        color: beige;
         padding-top: 2em;
     }
     .image p {
         padding: 0;
-        color: #000;
+        color: beige;
     }
     .profile-form {
         width: 60%;
@@ -346,12 +342,12 @@ a {
     }
     .topnav.responsive {position: relative;}
     .topnav.responsive a.icon {
-        position: fixed;
+        position: absolute;
         right: 0;
         top: 0;
     }
     .topnav.responsive a {
-        float: none;
+        float: left;
         display: block;
         text-align: left;
         position: relative;
