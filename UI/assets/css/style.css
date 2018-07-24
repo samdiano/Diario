@@ -200,11 +200,11 @@ hr {
 /* Add a blue text color to links */
 a {
   color: dodgerblue;
+  text-decoration: none;
 }
 
 /* Set a grey background color and center the text of the "sign in" section */
 .signin {
-  background-color: #4e4747;
   text-align: center;
 }
 #entries {
@@ -301,7 +301,7 @@ a {
         width:31%;
     }
     .container {
-        padding: 16px;
+        padding:5% 0 0 0;
         margin: 0 30%;
     }
     #entries {
