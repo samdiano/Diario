@@ -14,7 +14,7 @@ const validateEntry = (entry) => {
 class EntriesController {
   // get all entries
   static getAllEntries(req, res) {
-    if (entries.length != 0) {
+    if (entries.length !== 0) {
       return res.status(200).json({
         entries,
         status: 'Ok',
@@ -27,7 +27,7 @@ class EntriesController {
     });
   }
   static getEntry(req, res) {
-    const entry = entries.find(entry => entry.id === parseInt(req.params.id, 10));
+    const entry = entries.find(ent => ent.id === parseInt(req.params.id, 10));
     if (!entry) {
       return res.status(404).json({
         message: 'Entry does not exist',
@@ -66,7 +66,7 @@ class EntriesController {
   }
   // modify fields in an entry
   static updateEntry(req, res) {
-    const entry = entries.find(entry => entry.id === parseInt(req.params.id, 10));
+    const entry = entries.find(ent => ent.id === parseInt(req.params.id, 10));
     if (!entry) {
       return res.status(404).json({
         message: 'Entry does not exist',
@@ -96,7 +96,7 @@ class EntriesController {
   }
   // remove entry
   static removeEntry(req, res) {
-    const entry = entries.find(entry => entry.id === parseInt(req.params.id, 10));
+    const entry = entries.find(ent => ent.id === parseInt(req.params.id, 10));
     if (!entry) {
       return res.status(404).json({
         message: 'Entry does not exist',
