@@ -24,9 +24,11 @@
     "babel-polyfill": "^6.26.0",
     "babel-preset-env": "^1.7.0",
     "babel-register": "^6.26.0",
+    "bcrypt": "^3.0.0",
+    "bluebird": "^3.5.1",
     "body-parser": "^1.18.3",
     "config": "^1.30.0",
-    "cross-env": "^5.1.5",
+    "cross-env": "^5.2.0",
     "debug": "^3.1.0",
     "eslint": "^4.19.1",
     "eslint-config-airbnb": "^16.1.0",
@@ -35,7 +37,9 @@
     "express-async-errors": "^3.0.0",
     "helmet": "^3.12.1",
     "joi": "^13.4.0",
+    "jsonwebtoken": "^8.3.0",
     "morgan": "^1.9.0",
+    "pg-promise": "^8.4.5",
     "winston": "2.4.0"
   },
   "devDependencies": {

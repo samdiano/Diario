@@ -1,17 +1,18 @@
 import chai, { expect } from 'chai';
+import jwt from 'jsonwebtoken';
 import chaiHttp from 'chai-http';
 import server from '../app';
 
 chai.use(chaiHttp);
-
-const entry = {
-  userId: 8,
-  title: 'The day I first ....',
-  body: 'Paragraph ...',
-  date: '5-7-2019'
-};
+const token = jwt.sign({ id: 1 }, 'oiraid', { expiresIn: 86400 });
 
 describe('Entries', () => {
+  const entry = {
+    userid: 1,
+    title: 'The day I first ....',
+    body: 'Paragraph ...'
+  };
+
   it('should return welcome message', (done) => {
     chai.request(server)
       .get('/api/v1/')
@@ -21,37 +22,59 @@ describe('Entries', () => {
         done();
       });
   });
-  it('should return all entries ', (done) => {
+  it('should throw an exception when token is invalid', (done) => {
+    chai.request(server)
+      .get('/api/v1/entries')
+      .set('x-auth-token', 'djdjdjk')
+      .end((err, res) => {
+        expect(res.status).to.equal(400);
+        expect(res.body.message).to.equal('Invalid token');
+        expect(res.body.status).to.equal('Failed');
+        done();
+      });
+  });
+  it('should throw an exception when no token is provided', (done) => {
     chai.request(server)
       .get('/api/v1/entries')
       .end((err, res) => {
+        expect(res.status).to.equal(401);
+        expect(res.body.message).to.equal('Access denied, no token provided');
+        expect(res.body.status).to.equal('Failed');
+        done();
+      });
+  });
+  it('should return all entries ', (done) => {
+    chai.request(server)
+      .get('/api/v1/entries')
+      .set('x-auth-token', token)
+      .end((err, res) => {
         expect(res.status).to.equal(200);
         expect(res.body).to.be.an('object');
-        expect(res.body.entries[0]).to.have.property('id').equal(1);
-        expect(res.body.entries[0]).to.have.property('title').equal('My Title');
-        expect(res.body.entries[0]).to.have.property('body').equal('The body');
-        expect(res.body.entries[0]).to.have.property('date').equal('5-7-2018');
-        expect(res.body.entries[0]).to.have.property('userId').equal(5);
+        expect(res.body.entries[0]).to.have.property('id');
+        expect(res.body.entries[0]).to.have.property('title');
+        expect(res.body.entries[0]).to.have.property('body');
+        expect(res.body.entries[0]).to.have.property('userid');
         done();
       });
   });
   it('should return an entry if a valid id is passed', (done) => {
     chai.request(server)
-      .get('/api/v1/entries/1')
+      .get('/api/v1/entries/6')
+      .set('x-auth-token', token)
       .end((err, res) => {
         expect(res.body).to.be.an('object');
         expect(res.status).to.equal(200);
-        expect(res.body.entry).to.have.property('title').equal('My Title');
-        expect(res.body.entry).to.have.property('body').equal('The body');
-        expect(res.body.entry).to.have.property('userId').equal(5);
-        expect(res.body.entry).to.have.property('date').equal('5-7-2018');
-        expect(res.body.entry).to.have.property('id').equal(1);
+        expect(res.body.entry[0]).to.have.property('title');
+        expect(res.body.entry[0]).to.have.property('body');
+        expect(res.body.entry[0]).to.have.property('userid');
+        expect(res.body.entry[0]).to.have.property('id').equal(3);
         done();
       });
   });
   it('should not return an entry with an invalid id', (done) => {
     chai.request(server)
-      .get('/api/v1/entries/25')
+      .get('/api/v1/entries/255')
+      .set('x-auth-token', token)
       .end((err, res) => {
         expect(res.body).to.be.an('object');
         expect(res.status).to.equal(404);
@@ -63,24 +86,22 @@ describe('Entries', () => {
   it('Should post an entry', (done) => {
     chai.request(server)
       .post('/api/v1/entries')
+      .set('x-auth-token', token)
       .send(entry)
       .end((err, res) => {
         expect(res.status).to.equal(201);
-        expect(res.body.entry).to.have.property('title').equal(entry.title);
-        expect(res.body.entry).to.have.property('body').equal(entry.body);
-        expect(res.body.entry).to.have.property('userId').equal(entry.userId);
-        expect(res.body.entry).to.have.property('date').equal(entry.date);
-        expect(res.body).to.have.property('status').equal('Success');
+        expect(res.body).to.have.property('status').equal('success');
+        expect(res.body).to.have.property('message').equal('Inserted one Entry');
         done();
       });
   });
   it('Should not post an entry with incomplete fields', (done) => {
     chai.request(server)
       .post('/api/v1/entries')
+      .set('x-auth-token', token)
       .send({
-        userId: 8,
+        userId: 1,
         title: 'The day I first ....',
-        body: 'Paragraph ...',
       })
       .end((err, res) => {
         expect(res.status).to.equal(400);
@@ -91,24 +112,27 @@ describe('Entries', () => {
   });
   it('Should update an entry', (done) => {
     chai.request(server)
-      .put('/api/v1/entries/1')
-      .send(entry)
+      .put('/api/v1/entries/6')
+      .set('x-auth-token', token)
+      .send({
+        title: 'The school of Law ....',
+        body: 'Paragraph ...'
+      })
       .end((err, res) => {
-        expect(res.body.message).to.equal('Entry updated successfully');
+        expect(res.body.message).to.equal('Updated one entry');
         expect(res.status).to.equal(200);
-        expect(res.body.entry).to.have.property('title').equal(entry.title);
-        expect(res.body.entry).to.have.property('body').equal(entry.body);
-        expect(res.body.entry).to.have.property('userId').equal(entry.userId);
-        expect(res.body.entry).to.have.property('date').equal(entry.date);
-        expect(res.body.entry).to.have.property('id').equal(1);
-        expect(res.body).to.have.property('status').equal('Success');
+        expect(res.body).to.have.property('status').equal('success');
         done();
       });
   });
   it('Should not update an entry with an invalid ID', (done) => {
     chai.request(server)
-      .put('/api/v1/entries/35')
-      .send(entry)
+      .put('/api/v1/entries/3500')
+      .set('x-auth-token', token)
+      .send({
+        title: 'The day I first ....',
+        body: 'Paragraph ...',
+      })
       .end((err, res) => {
         expect(res.status).to.equal(404);
         expect(res.body).to.have.property('message').equal('Entry does not exist');
@@ -118,11 +142,10 @@ describe('Entries', () => {
   });
   it('Should not update an entry with incomplete fields', (done) => {
     chai.request(server)
-      .put('/api/v1/entries/1')
+      .put('/api/v1/entries/6')
+      .set('x-auth-token', token)
       .send({
-        userId: 8,
-        title: 'The day I first ....',
-        body: 'Paragraph ...',
+        title: 'The day I first ....'
       })
       .end((err, res) => {
         expect(res.status).to.equal(400);
@@ -131,24 +154,10 @@ describe('Entries', () => {
         done();
       });
   });
-  it('Should delete the entry with the specified id', (done) => {
-    chai.request(server)
-      .delete('/api/v1/entries/1')
-      .end((err, res) => {
-        expect(res.body.message).to.equal('Entry deleted successfully');
-        expect(res.status).to.equal(200);
-        expect(res.body.entry).to.have.property('title').equal(entry.title);
-        expect(res.body.entry).to.have.property('body').equal(entry.body);
-        expect(res.body.entry).to.have.property('userId').equal(entry.userId);
-        expect(res.body.entry).to.have.property('date').equal(entry.date);
-        expect(res.body.entry).to.have.property('id').equal(1);
-        expect(res.body).to.have.property('status').equal('Success');
-        done();
-      });
-  });
   it('Should not delete an entry with an invalid ID', (done) => {
     chai.request(server)
-      .delete('/api/v1/entries/35')
+      .delete('/api/v1/entries/3500')
+      .set('x-auth-token', token)
       .end((err, res) => {
         expect(res.status).to.equal(404);
         expect(res.body).to.have.property('message').equal('Entry does not exist');
