@@ -18,7 +18,7 @@ const routes = (app) => {
 
 
   // Auth routes
-  app.post('/api/v1/auth/signin', auth.signIn);
+  app.post('/api/v1/auth/login', auth.signIn);
   app.post('/api/v1/auth/signup', auth.signUp);
 };
 
