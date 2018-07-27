@@ -51,6 +51,18 @@ class EntriesController {
     await db.any('insert into entries(userid, title, body) values(${userid}, ${title}, ${body})', req.body);
     res.status(201).json({ status: 'success', message: 'Inserted one Entry' });
   }
+
+  // modify fields in an entry
+  static async updateEntry(req, res) {
+    const { error } = validateEntry(req.body);
+    if (error) return res.status(400).json({ message: error.details[0].message, status: 'Failed' });
+    const token = req.header('x-auth-token');
+    if (!token) return res.status(401).json({ message: 'Access denied, no token provided', status: 'Failed' });
+    const decoded = jwt.verify(token, 'oiraid');
+    const result = await db.result('update entries set title=$1, body=$2 where id=$3 and userid=$4', [req.body.title, req.body.body, parseInt(req.params.id, 10), decoded.id]);
+    if (result.rowCount === 0) return res.status(404).json({ message: 'Entry does not exist', status: 'error' });
+    res.status(200).json({ status: 'success', message: 'Updated one entry' });
+  }
 }
 
 export default EntriesController;
