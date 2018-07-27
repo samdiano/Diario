@@ -37,25 +37,6 @@
             "err"
           ]
         }
-      ],
-      "valid-jsdoc": [
-        "error",
-        {
-          "requireReturn": false,
-          "requireReturnType": false,
-          "requireParamDescription": false,
-          "requireReturnDescription": false
-        }
-      ],
-      "require-jsdoc": [
-        "error",
-        {
-          "require": {
-            "FunctionDeclaration": false,
-            "MethodDefinition": false,
-            "ClassDeclaration": false
-          }
-        }
       ]
     }
   }
