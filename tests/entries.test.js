@@ -154,4 +154,15 @@ describe('Entries', () => {
         done();
       });
   });
+  it('Should not delete an entry with an invalid ID', (done) => {
+    chai.request(server)
+      .delete('/api/v1/entries/3500')
+      .set('x-auth-token', token)
+      .end((err, res) => {
+        expect(res.status).to.equal(404);
+        expect(res.body).to.have.property('message').equal('Entry does not exist');
+        expect(res.body).to.have.property('status').equal('error');
+        done();
+      });
+  });
 });

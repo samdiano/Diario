@@ -14,6 +14,7 @@ const routes = (app) => {
   app.get('/api/v1/entries/:id', authenticate, entries.getEntry);
   app.post('/api/v1/entries', authenticate, entries.addEntry);
   app.put('/api/v1/entries/:id', authenticate, entries.updateEntry);
+  app.delete('/api/v1/entries/:id', authenticate, entries.removeEntry);
 
 
   // Auth routes
