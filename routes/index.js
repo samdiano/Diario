@@ -1,4 +1,5 @@
 import entries from '../controllers/EntriesController';
+import auth from '../controllers/UsersController';
 
 const routes = (app) => {
   app.get('/api/v1', (req, res) => {
@@ -13,6 +14,9 @@ const routes = (app) => {
   app.post('/api/v1/entries', entries.addEntry);
   app.put('/api/v1/entries/:id', entries.updateEntry);
   app.delete('/api/v1/entries/:id', entries.removeEntry);
+
+  // Auth routes
+  app.post('/api/v1/auth/signin', auth.signIn);
 };
 
 export default routes;
