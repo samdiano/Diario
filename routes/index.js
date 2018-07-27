@@ -11,6 +11,8 @@ const routes = (app) => {
   });
   // Entry routes
   app.get('/api/v1/entries', authenticate, entries.getAllEntries);
+  app.get('/api/v1/entries/:id', entries.getEntry);
+  app.post('/api/v1/entries', entries.addEntry);
 
 
   // Auth routes
