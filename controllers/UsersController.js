@@ -39,7 +39,7 @@ class UsersController {
     const user = await db.any('SELECT * FROM users where email = $1', req.body.email);
     const validPassword = await bcrypt.compare(req.body.password, user[0].password);
     if (!validPassword) return res.status(400).json({ message: 'Invalid email or password', status: 'Failed' });
-    const token = jwt.sign({ id: user[0].id }, 'samuel', { expiresIn: 86400 });
+    const token = jwt.sign({ id: user[0].id }, 'oiraid', { expiresIn: 86400 });
     res.header('x-auth-token', token).status(200).json({ status: 'success', user: user[0].full_name, message: 'Login succesful' });
   }
   static async signUp(req, res) {

@@ -1,5 +1,6 @@
 import entries from '../controllers/EntriesController';
 import auth from '../controllers/UsersController';
+import authenticate from '../middleware/auth';
 
 const routes = (app) => {
   app.get('/api/v1', (req, res) => {
@@ -9,11 +10,8 @@ const routes = (app) => {
     });
   });
   // Entry routes
-  app.get('/api/v1/entries', entries.getAllEntries);
-  app.get('/api/v1/entries/:id', entries.getEntry);
-  app.post('/api/v1/entries', entries.addEntry);
-  app.put('/api/v1/entries/:id', entries.updateEntry);
-  app.delete('/api/v1/entries/:id', entries.removeEntry);
+  app.get('/api/v1/entries', authenticate, entries.getAllEntries);
+
 
   // Auth routes
   app.post('/api/v1/auth/signin', auth.signIn);
