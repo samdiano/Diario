@@ -59,7 +59,7 @@ describe('Entries', () => {
   });
   it('should return an entry if a valid id is passed', (done) => {
     chai.request(server)
-      .get('/api/v1/entries/1')
+      .get('/api/v1/entries/6')
       .set('x-auth-token', token)
       .end((err, res) => {
         expect(res.body).to.be.an('object');
@@ -112,7 +112,7 @@ describe('Entries', () => {
   });
   it('Should update an entry', (done) => {
     chai.request(server)
-      .put('/api/v1/entries/1')
+      .put('/api/v1/entries/6')
       .set('x-auth-token', token)
       .send({
         title: 'The school of Law ....',
@@ -142,7 +142,7 @@ describe('Entries', () => {
   });
   it('Should not update an entry with incomplete fields', (done) => {
     chai.request(server)
-      .put('/api/v1/entries/1')
+      .put('/api/v1/entries/6')
       .set('x-auth-token', token)
       .send({
         title: 'The day I first ....'
