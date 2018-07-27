@@ -19,6 +19,16 @@ class EntriesController {
     const entries = await db.any('SELECT * FROM entries where userid = $1', decoded.id);
     res.status(200).json({ status: 'success', entries, message: 'Retrieved ALL Entries' });
   }
+
+  static async getEntry(req, res) {
+    const token = req.header('x-auth-token');
+    if (!token) return res.status(401).json({ message: 'Access denied, no token provided', status: 'Failed' });
+    const decoded = jwt.verify(token, 'oiraid');
+    const entryID = parseInt(req.params.id, 10);
+    const entry = await db.any('SELECT * FROM entries where id = $1 and userid =$2', [entryID, decoded.id]);
+    if (entry.length === 0) return res.status(404).json({ message: 'Entry does not exist', status: 'error' });
+    res.status(200).json({ status: 'success', entry, message: 'Retrieved ONE entry' });
+  }
 }
 
 export default EntriesController;
