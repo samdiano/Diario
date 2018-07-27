@@ -110,4 +110,48 @@ describe('Entries', () => {
         done();
       });
   });
+  it('Should update an entry', (done) => {
+    chai.request(server)
+      .put('/api/v1/entries/1')
+      .set('x-auth-token', token)
+      .send({
+        title: 'The school of Law ....',
+        body: 'Paragraph ...'
+      })
+      .end((err, res) => {
+        expect(res.body.message).to.equal('Updated one entry');
+        expect(res.status).to.equal(200);
+        expect(res.body).to.have.property('status').equal('success');
+        done();
+      });
+  });
+  it('Should not update an entry with an invalid ID', (done) => {
+    chai.request(server)
+      .put('/api/v1/entries/3500')
+      .set('x-auth-token', token)
+      .send({
+        title: 'The day I first ....',
+        body: 'Paragraph ...',
+      })
+      .end((err, res) => {
+        expect(res.status).to.equal(404);
+        expect(res.body).to.have.property('message').equal('Entry does not exist');
+        expect(res.body).to.have.property('status').equal('error');
+        done();
+      });
+  });
+  it('Should not update an entry with incomplete fields', (done) => {
+    chai.request(server)
+      .put('/api/v1/entries/1')
+      .set('x-auth-token', token)
+      .send({
+        title: 'The day I first ....'
+      })
+      .end((err, res) => {
+        expect(res.status).to.equal(400);
+        expect(res.body).to.have.property('message');
+        expect(res.body).to.have.property('status').equal('Failed');
+        done();
+      });
+  });
 });
