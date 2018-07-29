@@ -1,36 +1,8 @@
-import Joi from 'joi';
 import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
-import promise from 'bluebird';
-
-const options = {
-  // Initialization Options
-  promiseLib: promise
-};
-const pgp = require('pg-promise')(options);
-const connectionString = 'postgres://zehxatan:EP22Gmb985sp3eXwp2z94Hz-9nlbr4D4@stampy.db.elephantsql.com:5432/zehxatan';
-const db = pgp(connectionString);
-
-const validateSignUp = (user) => {
-  const schema = {
-    email: Joi.string().min(5).max(255).required()
-      .email(),
-    password: Joi.string().min(5).max(255).required(),
-    full_name: Joi.string().min(5).max(255).required()
-
-  };
-  return Joi.validate(user, schema);
-};
-
-const validateSignIn = (user) => {
-  const schema = {
-    email: Joi.string().min(5).max(255).required()
-      .email(),
-    password: Joi.string().min(5).max(255).required()
-
-  };
-  return Joi.validate(user, schema);
-};
+import db from '../middleware/connectdb';
+import validateSignIn from '../middleware/validateSignIn';
+import validateSignUp from '../middleware/validateSignup';
 
 class UsersController {
   static async signIn(req, res) {
@@ -45,10 +17,18 @@ class UsersController {
   static async signUp(req, res) {
     const { error } = validateSignUp(req.body);
     if (error) return res.status(400).json({ message: error.details[0].message, status: 'Failed' });
+    const users = await db.result('SELECT email FROM users');
+    const existingUser = users.rows.find(user =>
+      (user.email.toLowerCase() === req.body.email.toLowerCase()));
+    if (existingUser) return res.status(409).json({ message: 'User already exists', status: 'Failed' });
     const salt = await bcrypt.genSalt(10);
     req.body.password = await bcrypt.hash(req.body.password, salt);
-    await db.any('insert into users(full_name, email, password) values(${full_name}, ${email}, ${password})', req.body);
-    res.status(201).json({ status: 'success', message: 'Inserted one user' });
+    const user = await db.result('insert into users(full_name, email, password) values(${full_name}, ${email}, ${password})', req.body);
+    if (user) {
+      const result = await db.any('SELECT id, email, created_at FROM users where email = $1', req.body.email);
+      const token = jwt.sign({ id: result[0].id }, 'oiraid', { expiresIn: 86400 });
+      res.header('x-auth-token', token).status(201).json({ status: 'success', users: result[0], message: 'Inserted one user' });
+    }
   }
 }
 

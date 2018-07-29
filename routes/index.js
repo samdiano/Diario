@@ -2,6 +2,7 @@ import entries from '../controllers/EntriesController';
 import auth from '../controllers/UsersController';
 import authenticate from '../middleware/auth';
 
+
 const routes = (app) => {
   app.get('/api/v1', (req, res) => {
     res.status(200).json({
