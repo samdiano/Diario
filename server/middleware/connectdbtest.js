@@ -5,7 +5,7 @@ const options = {
   promiseLib: promise
 };
 const pgp = require('pg-promise')(options);
-const connectionString = 'postgres://zehxatan:EP22Gmb985sp3eXwp2z94Hz-9nlbr4D4@stampy.db.elephantsql.com:5432/zehxatan';
+const connectionString = 'postgres://pjaobuno:E4kEfwo7foXQ-FqAl6FGvtlKRELB9oRv@baasu.db.elephantsql.com:5432/pjaobuno';
 const db = pgp(connectionString);
 
 export default db;

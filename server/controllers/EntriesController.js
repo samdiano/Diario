@@ -1,5 +1,5 @@
 import db from '../middleware/connectdb';
-import validateEntry from '../middleware/validateEntry';
+import validateEntry from '../helpers/validateEntry';
 
 
 class EntriesController {
