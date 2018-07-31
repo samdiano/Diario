@@ -270,12 +270,15 @@ a {
 
 .image {
     display: grid;
-    font-family: 'Dancing Script', cursive;
+    font-family: Arial, Helvetica, sans-serif;
     padding: 1em;
     
 }
 .app-name {
     font-family: 'Lobster', cursive;
+}
+.content-title {
+    color: black;
 }
 
 /* Media Query */

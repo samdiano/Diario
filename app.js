@@ -2,7 +2,7 @@ import express from 'express';
 import morgan from 'morgan';
 import winston from 'winston';
 import bodyParser from 'body-parser';
-import routes from './routes';
+import routes from './server/routes';
 
 const port = process.env.PORT || 8000;
 const app = express();
