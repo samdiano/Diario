@@ -1,8 +1,12 @@
 import chai, { expect } from 'chai';
+import jwt from 'jsonwebtoken';
 import chaiHttp from 'chai-http';
 import server from '../../app';
 
 chai.use(chaiHttp);
+
+const token = jwt.sign({ id: 1 }, 'oiraid', { expiresIn: 86400 });
+
 
 describe('Users', () => {
   const user = {
@@ -85,6 +89,33 @@ describe('Users', () => {
         expect(res.status).to.equal(409);
         expect(res.body).to.have.property('status').equal('Failed');
         expect(res.body).to.have.property('message').equal('User already exists');
+        done();
+      });
+  });
+  it('should return the user details ', (done) => {
+    chai.request(server)
+      .get('/api/v1/profile')
+      .set('x-auth-token', token)
+      .end((err, res) => {
+        expect(res.body).to.be.an('object');
+        expect(res.status).to.equal(200);
+        expect(res.body.user[0]).to.have.property('email');
+        expect(res.body.user[0]).to.have.property('full_name');
+        expect(res.body.user[0]).to.have.property('created_at');
+        done();
+      });
+  });
+  it('Should update user details', (done) => {
+    chai.request(server)
+      .put('/api/v1/profile')
+      .set('x-auth-token', token)
+      .send({
+        full_name: 'The school of Law ....'
+      })
+      .end((err, res) => {
+        expect(res.body.message).to.equal('Profile updated successfully');
+        expect(res.status).to.equal(200);
+        expect(res.body).to.have.property('status').equal('success');
         done();
       });
   });

@@ -18,32 +18,37 @@
         <span class="app-name" style="float:left; padding: 1em;">
             <i class="fas fa-book-open"></i>&nbsp;Diario</span>
     </div>
+    
 
-    <form action="dashboard.html">
+    <form id="signin">
         <div class="container">
+
             <h1>Sign In</h1>
+    <div class="notify" id="notify"></div>
+
             <hr>
             <label for="email">
                 <b>Email</b>
             </label>
-            <input type="text" placeholder="Enter Email" name="email" required>
+            <input type="text" placeholder="Enter Email" name="email" id="email" required>
 
             <label for="psw">
                 <b>Password</b>
             </label>
-            <input type="password" placeholder="Enter Password" name="psw" required>
+            <input type="password" placeholder="Enter Password" name="password" id="password" required>
 
             <hr>
-            <button type="submit" class="registerbtn">Sign in</button>
+            <button id="submit" class="registerbtn">Sign in</button>
         </div>
 
         <div class="signin">
             <p>Don't have an account with us?
-                <a href="signup.html">Register</a>
+                <a href="signup">Register</a>
             </p>
         </div>
     </form>
     <script src="assets/js/modal.js"></script>
+    <script src="assets/js/signin.js"></script>
 
 </body>
 
