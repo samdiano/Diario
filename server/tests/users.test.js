@@ -110,11 +110,12 @@ describe('Users', () => {
       .put('/api/v1/profile')
       .set('x-auth-token', token)
       .send({
-        full_name: 'The school of Law ....'
+        full_name: 'The school of Law ....',
+        password: 'passwords'
       })
       .end((err, res) => {
-        expect(res.body.message).to.equal('Profile updated successfully');
         expect(res.status).to.equal(200);
+        expect(res.body.message).to.equal('Profile updated successfully');
         expect(res.body).to.have.property('status').equal('success');
         done();
       });

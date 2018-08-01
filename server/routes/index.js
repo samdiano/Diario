@@ -21,6 +21,8 @@ const routes = (app) => {
   // Auth routes
   app.post('/api/v1/auth/login', auth.signIn);
   app.post('/api/v1/auth/signup', auth.signUp);
+  app.get('/api/v1/profile', authenticate, auth.getUser);
+  app.put('/api/v1/profile', authenticate, auth.updateUser);
 
   // Frontend Routes
   const root = 'UI';
