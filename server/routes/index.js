@@ -21,6 +21,40 @@ const routes = (app) => {
   // Auth routes
   app.post('/api/v1/auth/login', auth.signIn);
   app.post('/api/v1/auth/signup', auth.signUp);
+
+  // Frontend Routes
+  const root = 'UI';
+  app.get('/assets/css/style.css', (req, res) => {
+    res.sendFile('/assets/css/style.css', { root });
+  });
+  app.get('/assets/js/main.js', (req, res) => {
+    res.sendFile('/assets/js/main.js', { root });
+  });
+  app.get('/assets/js/modal.js', (req, res) => {
+    res.sendFile('/assets/js/modal.js', { root });
+  });
+  app.get('/assets/js/signup.js', (req, res) => {
+    res.sendFile('/assets/js/signup.js', { root });
+  });
+
+  app.get('/', (req, res) => {
+    res.sendFile('index.html', { root });
+  });
+  app.get('/signup', (req, res) => {
+    res.sendFile('signup.html', { root });
+  });
+  app.get('/login', (req, res) => {
+    res.sendFile('login.html', { root });
+  });
+  app.get('/profile', (req, res) => {
+    res.sendFile('profile.html', { root });
+  });
+  app.get('/home', (req, res) => {
+    res.sendFile('dashboard.html', { root });
+  });
+  app.get('/entries/:id', (req, res) => {
+    res.sendFile('view-entry.html', { root });
+  });
 };
 
 export default routes;
