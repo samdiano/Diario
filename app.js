@@ -3,10 +3,17 @@ import morgan from 'morgan';
 import winston from 'winston';
 import cors from 'cors';
 import bodyParser from 'body-parser';
+import swaggerUi from 'swagger-ui-express';
+import YAML from 'yamljs';
 import routes from './server/routes';
 
 const port = process.env.PORT || 8000;
 const app = express();
+
+const apiDoc = YAML.load(`${process.cwd()}/swagger.yaml`);
+app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(apiDoc));
+
+
 app.use(cors());
 // log every request to
 app.use(morgan('tiny'));
