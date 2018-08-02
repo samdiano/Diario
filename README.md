@@ -23,6 +23,9 @@ Template is hosted at [https://samdiano.github.io/Diario/UI](https://samdiano.gi
 ### API Deployment
 API is deployed at [https://mi-diario.herokuapp.com/api/v1/](https://mi-diario.herokuapp.com/api/v1/)
 
+### API Documentation
+API is documented at [https://mi-diario.herokuapp.com/api-docs](https://mi-diario.herokuapp.com/api-docs)
+
 ### API Endpoints
 <table>
 	<tr>
@@ -55,6 +58,27 @@ API is deployed at [https://mi-diario.herokuapp.com/api/v1/](https://mi-diario.h
 		<td>/api/v1/entries/:entryId</td> 
 		<td>Delete an entry</td>
 	</tr>
+	<tr>
+		<td>POST</td>
+		<td>/api/v1/auth/login</td> 
+		<td>Sign in auser</td>
+	</tr>
+	<tr>
+		<td>POST</td>
+		<td>/api/v1/auth/signup</td> 
+		<td>Sign up a user</td>
+	</tr>
+	<tr>
+		<td>GET</td>
+		<td>/api/v1/profile</td> 
+		<td>Get details of logged in user</td>
+	</tr>
+	<tr>
+		<td>PUT</td>
+		<td>/api/v1/profile</td> 
+		<td>Update details of logged in user</td>
+	</tr>
+	
 </table>
 
 ## Technologies
