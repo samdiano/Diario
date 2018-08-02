@@ -21,7 +21,6 @@ describe('Users', () => {
       .send(user)
       .end((err, res) => {
         expect(res.status).to.equal(201);
-        expect(res.body).to.have.property('status').equal('success');
         expect(res.body).to.have.property('users');
         expect(res.body).to.have.property('message').equal('Inserted one user');
         done();
@@ -33,7 +32,6 @@ describe('Users', () => {
       .send({ email: 'sammy@sammy.com' })
       .end((err, res) => {
         expect(res.status).to.equal(400);
-        expect(res.body).to.have.property('status').equal('Failed');
         expect(res.body).to.have.property('message');
         done();
       });
@@ -48,7 +46,6 @@ describe('Users', () => {
       .end((err, res) => {
         expect(res.status).to.equal(200);
         expect(res.body).to.have.property('message').equal('Login succesful');
-        expect(res.body).to.have.property('status').equal('success');
         done();
       });
   });
@@ -58,7 +55,6 @@ describe('Users', () => {
       .send({ password: 'password' })
       .end((err, res) => {
         expect(res.status).to.equal(400);
-        expect(res.body).to.have.property('status').equal('Failed');
         expect(res.body).to.have.property('message').equal('"email" is required');
         done();
       });
@@ -72,7 +68,6 @@ describe('Users', () => {
       })
       .end((err, res) => {
         expect(res.status).to.equal(401);
-        expect(res.body).to.have.property('status').equal('Failed');
         expect(res.body).to.have.property('message').equal('Invalid email or password');
         done();
       });
@@ -87,7 +82,6 @@ describe('Users', () => {
       })
       .end((err, res) => {
         expect(res.status).to.equal(409);
-        expect(res.body).to.have.property('status').equal('Failed');
         expect(res.body).to.have.property('message').equal('User already exists');
         done();
       });
@@ -116,7 +110,6 @@ describe('Users', () => {
       .end((err, res) => {
         expect(res.status).to.equal(200);
         expect(res.body.message).to.equal('Profile updated successfully');
-        expect(res.body).to.have.property('status').equal('success');
         done();
       });
   });

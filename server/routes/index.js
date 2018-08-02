@@ -41,6 +41,15 @@ const routes = (app) => {
   app.get('/assets/js/signin.js', (req, res) => {
     res.sendFile('/assets/js/signin.js', { root });
   });
+  app.get('/assets/js/getEntries.js', (req, res) => {
+    res.sendFile('/assets/js/getEntries.js', { root });
+  });
+  app.get('/assets/js/getEntry.js', (req, res) => {
+    res.sendFile('/assets/js/getEntry.js', { root });
+  });
+  app.get('/assets/js/createEntry.js', (req, res) => {
+    res.sendFile('/assets/js/createEntry.js', { root });
+  });
 
   app.get('/', (req, res) => {
     res.sendFile('index.html', { root });
