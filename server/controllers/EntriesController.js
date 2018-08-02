@@ -33,7 +33,7 @@ class EntriesController {
     const { error } = validateEntry(req.body);
     if (error) return res.status(400).json({ message: error.details[0].message, status: 'Failed' });
     const entryID = parseInt(req.params.id, 10);
-    const date = await db.any('SELECT created_at FROM entries where id = $1 and userid = $2', [entryID, req.user.id]);
+    const date = await db.any('SELECT * FROM entries where id = $1 and userid = $2', [entryID, req.user.id]);
     if (date.length === 0) return res.status(404).json({ message: 'Entry does not exist', status: 'error' });
     const time = new Date(date[0].created_at);
     time.setHours(time.getHours() + 24);
