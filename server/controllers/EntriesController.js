@@ -12,8 +12,7 @@ class EntriesController {
 
   // Get single entry
   static async getEntry(req, res) {
-    const entryID = parseInt(req.params.id, 10);
-    if ((Number.isInteger(entryID) === false) || Math.sign(req.params.id)) {
+    if ((Number.isInteger(req.params.id) === false) || (Math.sign(req.params.id) === -1)) {
       return res.status(401).json({ status: 'Failed', message: 'Given ID is not a number' });
     }
     const entry = await db.any('SELECT * FROM entries where id = $1 and userid =$2', [entryID, req.user.id]);
@@ -36,7 +35,7 @@ class EntriesController {
     const { error } = validateEntry(req.body);
     if (error) return res.status(400).json({ message: error.details[0].message, status: 'Failed' });
     const entryID = parseInt(req.params.id, 10);
-    if ((Number.isInteger(entryID) === false) || Math.sign(req.params.id)) {
+    if ((Number.isInteger(entryID) === false) || (Math.sign(req.params.id) === -1)) {
       return res.status(401).json({ status: 'Failed', message: 'Given ID is not a number' });
     }
     const date = await db.any('SELECT * FROM entries where id = $1 and userid = $2', [entryID, req.user.id]);
@@ -51,7 +50,7 @@ class EntriesController {
   // remove entry
   static async removeEntry(req, res) {
     const entryID = parseInt(req.params.id, 10);
-    if ((Number.isInteger(entryID) === false) || Math.sign(req.params.id)) {
+    if ((Number.isInteger(entryID) === false) || (Math.sign(req.params.id) === -1)) {
       return res.status(401).json({ status: 'Failed', message: 'Given ID is not a number' });
     }
     const result = await db.result('delete from entries where id = $1 and userid= $2', [entryID, req.user.id]);

@@ -9,7 +9,10 @@
   "exclude": [
     "**/*.test.js",
     "**/__tests__/**",
-    "**/node_modules/**"
+    "**/node_modules/**",
+    "app.js",
+    "**/*index.js",
+    "**/*connectdb.js"
   ],
   "watermarks": {
       "lines": [75, 75],

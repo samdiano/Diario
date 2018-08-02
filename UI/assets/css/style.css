@@ -280,6 +280,16 @@ a {
 .content-title {
     color: black;
 }
+#notify {
+    background: rgb(106, 197, 106);
+    width: 70%;
+    margin: auto;
+    color: white;
+    padding: 2% 5% 2% 5%;
+    display: none;
+    border-radius: 2%;
+}
+
 
 /* Media Query */
 @media(min-width:700px) {

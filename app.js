@@ -1,6 +1,7 @@
 import express from 'express';
 import morgan from 'morgan';
 import winston from 'winston';
+import cors from 'cors';
 import bodyParser from 'body-parser';
 import swaggerUi from 'swagger-ui-express';
 import YAML from 'yamljs';
@@ -13,6 +14,7 @@ const apiDoc = YAML.load(`${process.cwd()}/swagger.yaml`);
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(apiDoc));
 
 
+app.use(cors());
 // log every request to
 app.use(morgan('tiny'));
 
@@ -21,7 +23,6 @@ const logger = new (winston.Logger)({
     new (winston.transports.Console)({ level: 'info' })
   ]
 });
-
 // parse incoming request data
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
