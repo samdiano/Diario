@@ -1,0 +1,316 @@
+swagger: '2.0'
+info:
+  version: 1.0.0
+  title: Diario
+  description: API for Diario
+  # My Contact Info
+  contact:
+    email: samuegeorge58@gmail.com
+basePath: /api/v1
+
+securityDefinitions:
+  Bearer:
+    type: token
+    name: x-auth-token
+    in: header
+
+# tags are used for organizing operations
+tags:
+- name: auth
+  description: Operation for authentication
+- name: profile
+  description: Operations for user's profile
+- name: entries
+  description: Operations for entries
+
+paths:
+  /auth/login:
+    post:
+      tags:
+        - auth
+      summary: signin a user
+      description: Log in a user to the application
+      produces:
+      - application/json
+      parameters:
+      - name: email
+        in: x-www-form-urlencoded
+        description: user email
+        type: string
+        required: true
+      - name: password
+        in: x-www-form-urlencoded
+        description: user password
+        type: string
+        required: true
+      responses:
+        200: 
+          description: Success, user logged in
+          examples:
+            application/json:
+              status: success
+              message: logged in
+              x-auth-token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaWF0IjoxNTMzMTYyMTc3LCJleHAiOjE1MzMyNDg1Nzd9.t7dUvBvkVC26TeNTRPrxPmDe2XLTxv5wT8h1yzRy3JM
+              user:
+                email: admin@admin.com
+        400:
+          description: Invalid Input
+          examples:
+            application/json:
+              status: error
+              message: Enter a valid email
+
+  /auth/signup:
+    post:
+      tags:
+      - auth
+      summary: Signup a user
+      description: Signup user into the application
+      produces:
+      - application/json
+      parameters:
+      - name: email
+        in: x-www-form-urlencoded
+        description: email of the user
+        type: string
+        required: true
+      - name: password
+        in: x-www-form-urlencoded
+        description: password of the user
+        type: string
+        required: true
+
+      responses:
+        201:
+          description: Success, user is signed up
+          examples:
+            application/json:
+              status: success
+              message: 'User created and logged in'
+              token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaWF0IjoxNTMzMTYyMTc3LCJleHAiOjE1MzMyNDg1Nzd9.t7dUvBvkVC26TeNTRPrxPmDe2XLTxv5wT8h1yzRy3JM
+              user:
+                email: admin@admin.com
+        400:
+          description: Invalid Input
+          examples:
+            application/json:
+              status: error
+              message: Enter a valid email
+
+  /profile:
+    get:
+      tags:
+      - profile
+      summary: Get user profile
+      description: Returns user's profile
+      security:
+      - x-auth-token: []
+      produces:
+      - application/json
+      responses:
+        200:
+          description: User profile
+          examples:
+            application/json:
+              status: success
+              user_profile:
+              - id: 1
+                email: admin@gmail.com
+                firstname: John
+                lastname: Doe
+    put:
+      tags: 
+      - profile
+      summary: update user's profile
+      security:
+      - x-auth-token: []
+      produces: 
+      - application/json
+      parameters:
+      - in: x-www-form-urlencoded
+        name: full_name
+        type: string
+        description: users full name
+        required: true
+     
+      - in: x-www-form-urlencoded
+        name: email
+        type: string
+        description: user's email
+        required: true
+      
+      responses:
+        200:
+          description: Updated profile successfully
+          example:
+            application/json:
+              status: success
+              message: Profile updated successfully
+              user:
+                email: admin@gmail.com
+                firstname: John
+                lastname: Doe
+                
+
+  /entries:
+    get:
+      tags:
+      - entries
+      summary: Get all entries by user
+      description: Shows all entries for a logged in user
+      security: 
+      - Bearer: []
+      produces:
+      - application/json
+      responses:
+        200:
+          description: A list of all entries by a users
+          examples:
+            application/json:
+              status: success
+              entries:
+                - id: 1
+                  title: Life is good
+                  body: so it goes like...
+                - id: 2
+                  title: A Creative museum
+                  body: so I had to...
+    post:
+      tags:
+      - entries
+      summary: Add an entry
+      description: Add a new diary entry
+      security:
+      - Bearer: []
+      produces:
+      - application/json
+      parameters:
+      - in: x-www-form-urlencoded
+        name: title
+        type: string
+        description: Name of entry
+        required: true
+      - in: x-www-form-urlencoded
+        name: body
+        type: string
+        description: Entry story
+        required: true
+      responses:
+        201:
+          description: Entry saved successfully
+          examples:
+            application/json:
+              status: success
+              message: Entry saved successfully
+              entry:
+                id: 1
+                title: This is it
+                body: some story of ...
+        400: 
+          description: Invalid input
+          examples:
+            application/json:
+              status: error
+              message: Enter valid entry title
+
+  /entries/{id}:
+    put:
+      tags:
+      - entries
+      summary: update a specific entry
+      security:
+      - Bearer: []
+      produces:
+      - application/json
+      parameters:
+      - in: path
+        name: id
+        required: true
+        description: the id for the entry to be updated
+        type: integer
+      - in: x-www-form-urlencoded
+        name: title
+        type: string
+        description: Name of entry
+        required: true
+      - in: x-www-form-urlencoded
+        name: body
+        type: string
+        description: Entry story
+        required: true
+      responses:
+        200:
+          description: Updated entry successfully
+          examples:
+            application/json:
+            status: success
+            message: Entry updated successfully
+            updated_entry:
+                id: 1
+                title: Interesting story
+                story: Something interesting
+        404: 
+          description: Entry not found
+          examples:
+            application/json:
+              status: error
+              message: Entry not found
+    delete:
+      tags:
+      - entries
+      summary: Delete an entry
+      security:
+      - Bearer: []
+      produces: 
+      - application/json
+      parameters:
+      - in: path
+        name: id
+        required: true
+        description: id of the entry to delete
+        type: integer
+      responses:
+        200:
+          description: Entry deleted
+          examples:
+            application/json:
+              status: success
+              message: Entry deleted successfully
+        404:
+          description: Entry could not be found
+          examples: 
+            application/json:
+              status: error
+              message: 'Entry not found'
+    get:
+      tags:
+      - entries
+      summary: Get an entry
+      description: Gets a single entry
+      security:
+      - Bearer: []
+      produces:
+      - application/json
+      parameters:
+      - in: path
+        name: id
+        required: true
+        description: id of the entry
+        type: integer
+      responses:
+        200:
+          description: View entry
+          examples:
+            application/json:
+              status: success
+              message: Entry reterived
+              entry:
+              - id: 1
+                title: Another story
+                story: Story
+        404:
+          description: Entry could not be found
+          examples: 
+            application/json:
+              status: error
+              message: Entry does not exist
