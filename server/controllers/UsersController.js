@@ -19,7 +19,7 @@ class UsersController {
 
     const validPassword = await bcrypt.compare(req.body.password, user[0].password);
     if (!validPassword) {
-      return res.status(400).json({
+      return res.status(401).json({
         message: 'Invalid email or password', status: 'Failed'
       });
     }

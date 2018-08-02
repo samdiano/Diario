@@ -71,7 +71,7 @@ describe('Users', () => {
         password: 'passwordsss'
       })
       .end((err, res) => {
-        expect(res.status).to.equal(400);
+        expect(res.status).to.equal(401);
         expect(res.body).to.have.property('status').equal('Failed');
         expect(res.body).to.have.property('message').equal('Invalid email or password');
         done();
