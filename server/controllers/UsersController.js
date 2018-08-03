@@ -11,7 +11,7 @@ class UsersController {
     const { error } = validateSignIn(req.body);
     if (error) {
       return res.status(400).json({
-        message: error.details[0].message, status: 'Failed'
+        message: error.details[0].message
       });
     }
 
@@ -20,13 +20,13 @@ class UsersController {
     const validPassword = await bcrypt.compare(req.body.password, user[0].password);
     if (!validPassword) {
       return res.status(401).json({
-        message: 'Invalid email or password', status: 'Failed'
+        message: 'Invalid email or password'
       });
     }
 
     const token = jwt.sign({ id: user[0].id }, 'oiraid', { expiresIn: 86400 });
     res.header('x-auth-token', token).status(200).json({
-      status: 'success', user: user[0].full_name, message: 'Login succesful'
+      user: user[0].full_name, message: 'Login succesful'
     });
   }
   // Sign up user
@@ -34,7 +34,7 @@ class UsersController {
     const { error } = validateSignUp(req.body);
     if (error) {
       return res.status(400).json({
-        message: error.details[0].message, status: 'Failed'
+        message: error.details[0].message
       });
     }
 
@@ -45,23 +45,32 @@ class UsersController {
 
     if (existingUser) {
       return res.status(409).json({
-        message: 'User already exists', status: 'Failed'
+        message: 'User already exists'
       });
     }
     const salt = await bcrypt.genSalt(10);
     req.body.password = await bcrypt.hash(req.body.password, salt);
 
-    await db.result('insert into users(full_name, email, password) values(${full_name}, ${email}, ${password})', req.body);
-    const result = await db.any('SELECT id, email, created_at FROM users where email = $1', req.body.email);
+    await db.result(
+      'insert into users(full_name,email,password) values(${full_name},${email},${password})',
+      req.body
+    );
+    const result = await db.any(
+      'SELECT id, email, created_at FROM users where email = $1',
+      req.body.email
+    );
     const token = jwt.sign({ id: result[0].id }, 'oiraid', { expiresIn: 86400 });
     res.header('x-auth-token', token).status(201).json({
-      status: 'success', users: result[0], message: 'Inserted one user'
+      users: result[0], message: 'Inserted one user'
     });
   }
   static async getUser(req, res) {
-    const user = await db.any('SELECT email, full_name, created_at FROM users where id = $1', [req.user.id]);
+    const user = await db.any(
+      'SELECT email, full_name, created_at FROM users where id = $1',
+      [req.user.id]
+    );
     res.status(200).json({
-      status: 'success', user, message: 'User details retrieved successfully '
+      user, message: 'User details retrieved successfully '
     });
   }
   // modify fields in an entry
@@ -69,14 +78,17 @@ class UsersController {
     const { error } = validateUser(req.body);
     if (error) {
       return res.status(400).json({
-        message: error.details[0].message, status: 'Failed'
+        message: error.details[0].message
       });
     }
     const salt = await bcrypt.genSalt(10);
     req.body.password = await bcrypt.hash(req.body.password, salt);
-    await db.result('update users set full_name=$1, password=$2 where id=$3', [req.body.full_name, req.body.password, req.user.id]);
+    await db.result(
+      'update users set full_name=$1, password=$2 where id=$3',
+      [req.body.full_name, req.body.password, req.user.id]
+    );
     res.status(200).json({
-      status: 'success', message: 'Profile updated successfully'
+      message: 'Profile updated successfully'
     });
   }
 }

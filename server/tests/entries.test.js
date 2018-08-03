@@ -32,7 +32,6 @@ describe('Entries', () => {
       .send(entry)
       .end((err, res) => {
         expect(res.status).to.equal(201);
-        expect(res.body).to.have.property('status').equal('success');
         expect(res.body).to.have.property('message').equal('Inserted one Entry');
         done();
       });
@@ -48,7 +47,6 @@ describe('Entries', () => {
       .end((err, res) => {
         expect(res.status).to.equal(400);
         expect(res.body).to.have.property('message');
-        expect(res.body).to.have.property('status').equal('Failed');
         done();
       });
   });
@@ -63,7 +61,6 @@ describe('Entries', () => {
       .end((err, res) => {
         expect(res.body.message).to.equal('Updated one entry');
         expect(res.status).to.equal(200);
-        expect(res.body).to.have.property('status').equal('success');
         done();
       });
   });
@@ -77,7 +74,6 @@ describe('Entries', () => {
       })
       .end((err, res) => {
         expect(res.status).to.equal(404);
-        expect(res.body).to.have.property('status').equal('error');
         done();
       });
   });
@@ -91,7 +87,6 @@ describe('Entries', () => {
       .end((err, res) => {
         expect(res.status).to.equal(400);
         expect(res.body).to.have.property('message');
-        expect(res.body).to.have.property('status').equal('Failed');
         done();
       });
   });
@@ -102,7 +97,6 @@ describe('Entries', () => {
       .end((err, res) => {
         expect(res.status).to.equal(400);
         expect(res.body.message).to.equal('Invalid token');
-        expect(res.body.status).to.equal('Failed');
         done();
       });
   });
@@ -112,7 +106,6 @@ describe('Entries', () => {
       .end((err, res) => {
         expect(res.status).to.equal(401);
         expect(res.body.message).to.equal('Access denied, no token provided');
-        expect(res.body.status).to.equal('Failed');
         done();
       });
   });
@@ -138,7 +131,6 @@ describe('Entries', () => {
         expect(res.status).to.equal(404);
         expect(res.body).to.be.an('object');
         expect(res.body).to.have.property('message');
-        expect(res.body).to.have.property('status').equal('error');
 
         done();
       });
@@ -165,7 +157,6 @@ describe('Entries', () => {
         expect(res.body).to.be.an('object');
         expect(res.status).to.equal(404);
         expect(res.body).to.have.property('message');
-        expect(res.body).to.have.property('status').equal('error');
         done();
       });
   });

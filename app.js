@@ -7,7 +7,7 @@ import swaggerUi from 'swagger-ui-express';
 import YAML from 'yamljs';
 import routes from './server/routes';
 
-const port = process.env.PORT || 8000;
+const port = process.env.PORT || 9000;
 const app = express();
 
 const apiDoc = YAML.load(`${process.cwd()}/swagger.yaml`);

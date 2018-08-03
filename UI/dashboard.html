@@ -54,10 +54,10 @@
         <div class="modal-content">
             <span class="close">&times;</span>
             <h1>Create Entry</h1>
-            <form action="dashboard">
-                <input type="text" placeholder="Title" name="title" required>
+            <form name="create" id="create">
+                <input type="text" placeholder="Title" name="title" id="title" required>
 
-                <textarea id="mytextarea"></textarea>
+                <textarea id="body" name="body"></textarea>
                 <hr>
                 <button type="submit" class="registerbtn">Create Entry</button>
         </div>
@@ -86,61 +86,14 @@
 
     </div>
     <section id="entries">
-        <div class="cards text-left">
-            <span>Lorem ipsum dolor sit amet consectetur adipisicing elit. Enim, minus.
-                <br>
-                <i>Date Created: 10-7-2018</i>
-            </span>
-            <span class="pull-right">
-                <button class="btn">View&nbsp;
-                    <i class="far fa-eye"></i>
-                </button>
-                <button class="btn" id="myBtn2">Edit &nbsp;
-                    <i class="far fa-edit"></i>
-                </button>
-                <button class="btn">Delete&nbsp;
-                    <i class="far fa-trash-alt"></i>
-                </button>
-            </span>
-        </div>
-        <div class="cards text-left">
-            <span>Lorem ipsum dolor sit amet consectetur adipisicing elit. Illo, quidem.
-                <br>
-                <i>Date Created: 10-7-2018</i>
-            </span>
-            <span class="pull-right">
-                <button class="btn">View&nbsp;
-                    <i class="far fa-eye"></i>
-                </button>
-                <button class="btn" id="myBtn2">Edit &nbsp;
-                    <i class="far fa-edit"></i>
-                </button>
-                <button class="btn">Delete&nbsp;
-                    <i class="far fa-trash-alt"></i>
-                </button>
-            </span>
-        </div>
-        <div class="cards text-left">
-            <span>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Illo, magni.
-                <br>
-                <i>Date Created: 10-7-2018</i>
-            </span>
-            <span class="pull-right">
-                <button class="btn">View&nbsp;
-                    <i class="far fa-eye"></i>
-                </button>
-                <button class="btn" id="myBtn2">Edit &nbsp;
-                    <i class="far fa-edit"></i>
-                </button>
-                <button class="btn">Delete&nbsp;
-                    <i class="far fa-trash-alt"></i>
-                </button>
-            </span>
-        </div>
+        <div id="notify" class="notify"></div>
     </section>
     </div>
     
     <script src="assets/js/modal.js"></script>
+    <script src="assets/js/getEntries.js"></script>
+    <!-- <script src="assets/js/getEntry.js"></script> -->
+    <script src="assets/js/createEntry.js"></script>
 </body>
 
 </html>

@@ -1,6 +1,6 @@
 const baseUrl = 'api/v1';
 
-function signin(e) {
+const signin = (e) => {
   e.preventDefault();
   const form = document.forms.signin;
   const email = form.email.value;
@@ -39,7 +39,7 @@ function signin(e) {
       }
     })
     .catch(err => console.error(err));
-}
+};
 
 document.getElementById('signin').addEventListener('submit', signin);
 
