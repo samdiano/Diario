@@ -18,7 +18,7 @@ const getEntries = (e) => {
     .then((data) => {
       console.log(data);
       let entries = document.getElementById('entries').innerHTML;
-      if (data.entries.length === 0) {
+      if (data.entries.length !== 0) {
         data.entries.forEach((entry) => {
           entries += `
         <div class="cards text-left">
