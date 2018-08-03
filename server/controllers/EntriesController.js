@@ -9,14 +9,14 @@ class EntriesController {
     if (entries.length === 0) {
       return res.status(404).json({ message: 'No entries posted yet' });
     }
-    res.status(200).json({ status: 'success', entries, message: 'Retrieved ALL Entries' });
+    res.status(200).json({ entries, message: 'Retrieved ALL Entries' });
   }
 
   // Get single entry
   static async getEntry(req, res) {
     const entryId = parseInt(req.params.id, 10);
     if ((Number(req.params.id) !== parseInt(req.params.id, 10)) || Math.sign(entryId) === -1) {
-      return res.status(401).json({ status: 'Failed', message: 'Given ID is not a number' });
+      return res.status(401).json({ message: 'Given ID is not a number' });
     }
     const entry = await db.any(
       'SELECT * FROM entries where id = $1 and userid =$2',
@@ -24,10 +24,10 @@ class EntriesController {
     );
     if (entry.length === 0) {
       return res.status(404).json({
-        message: 'Entry does not exist', status: 'error'
+        message: 'Entry does not exist'
       });
     }
-    res.status(200).json({ status: 'success', entry, message: 'Retrieved ONE entry' });
+    res.status(200).json({ entry, message: 'Retrieved ONE entry' });
   }
 
   // Add entry
@@ -43,7 +43,7 @@ class EntriesController {
       'insert into entries(userid, title, body) values(${userid}, ${title}, ${body})',
       req.body
     );
-    res.status(201).json({ status: 'success', message: 'Inserted one Entry' });
+    res.status(201).json({ message: 'Inserted one Entry' });
   }
 
   // modify fields in an entry
@@ -53,7 +53,7 @@ class EntriesController {
     if (error) return res.status(400).json({ message: error.details[0].message });
     const entryId = parseInt(req.params.id, 10);
     if ((Number(req.params.id) !== parseInt(req.params.id, 10)) || Math.sign(entryId) === -1) {
-      return res.status(401).json({ status: 'Failed', message: 'Given ID is not a number' });
+      return res.status(401).json({ message: 'Given ID is not a number' });
     }
     const date = await db.any(
       'SELECT * FROM entries where id = $1 and userid = $2',
@@ -69,7 +69,7 @@ class EntriesController {
       'update entries set title=$1, body=$2 where id=$3 and userid=$4',
       [req.body.title, req.body.body, entryId, req.user.id]
     );
-    res.status(200).json({ status: 'success', date, message: 'Updated one entry' });
+    res.status(200).json({ date, message: 'Updated one entry' });
   }
 
   // remove entry
@@ -83,7 +83,7 @@ class EntriesController {
       [entryId, req.user.id]
     );
     if (result.rowCount === 0) {
-      return res.status(404).json({ message: 'Entry does not exist', status: 'error' });
+      return res.status(404).json({ message: 'Entry does not exist'});
     }
     res.status(200).json({ message: 'Entry deleted successfully' });
   }
