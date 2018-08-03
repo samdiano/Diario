@@ -84,7 +84,7 @@ class EntriesController {
     );
     if (result.rowCount === 0) {
       return res.status(404).json({ message: 'Entry does not exist'});
-h    }
+ }
     res.status(200).json({ message: 'Entry deleted successfully' });
   }
 }
