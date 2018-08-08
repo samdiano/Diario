@@ -31,44 +31,48 @@
             <i class="fa fa-bars"></i>
         </a>
     </div>
-    <div class="grids">
+    <div class="body">
+        <div class="grids">
+        </div>
+
+        <section id="entries" style="display:flex;justify-content:space-around">
+            <div class="cards pull-right" style="width: 300px;">
+                <span>Number of Entries
+                    <br>
+                    <i>10</i>
+                </span>
+            </div>
+            <div class="cards pull-right" style="width: 300px; ">
+                <span>Set Reminder
+                    <br>
+                    <input type="time" value="10:00">
+                    <input type="submit" value="Set">
+                </span>
+            </div>
+        </section>
+        <form class="body" action="dashboard ">
+            <div class="text-left container" style="margin-top:-100px;">
+                <h1>Edit Profile</h1>
+                <label for="email">
+                    <span>Email</span>
+                </label>
+                <input type="text" placeholder="Enter Email" value="sam@gmail.com" name="email" required>
+
+                <label for="name">
+                    <span>Full Name</span>
+                </label>
+                <input type="text" placeholder="Enter Name" value="Samuel George" name="name" required>
+
+                <label for="psw">
+                    <span>Password</span>
+                </label>
+                <input type="password" placeholder="Enter Password" value="password" name="pass" required>
+
+                <button type="submit" class="registerbtn">Update Details</button>
+            </div>
+        </form>
     </div>
-    <section id="entries" style="display:flex;justify-content:space-around">
-        <div class="cards pull-right" style="width: 300px;">
-            <span>Number of Entries
-                <br>
-                <i>10</i>
-            </span>
-        </div>
-        <div class="cards pull-right" style="width: 300px; ">
-            <span>Set Reminder
-                <br>
-                <input type="time" value="10:00">
-                <input type="submit" value="Set">
-            </span>
-        </div>
-    </section>
-    <form action="dashboard ">
-        <div class="text-left container" style="margin-top:-100px;">
-            <h1>Edit Profile</h1>
-            <label for="email">
-                <span>Email</span>
-            </label>
-            <input type="text" placeholder="Enter Email" value="sam@gmail.com" name="email" required>
 
-            <label for="name">
-                <span>Full Name</span>
-            </label>
-            <input type="text" placeholder="Enter Name" value="Samuel George" name="name" required>
-
-            <label for="psw">
-                <span>Password</span>
-            </label>
-            <input type="password" placeholder="Enter Password" value="password" name="pass" required>
-
-            <button type="submit" class="registerbtn">Update Details</button>
-        </div>
-    </form>
 
 </body>
 
