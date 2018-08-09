@@ -2,7 +2,8 @@ const baseUrl = '../api/v1';
 
 function getEntry(e) {
   e.preventDefault();
-  const id = window.location.href.substring(30);
+  const id = window.location.href.substring(40);
+  // heroku 40
   console.log(id);
   fetch(`${baseUrl}/entries/${id}`, {
     method: 'GET',
