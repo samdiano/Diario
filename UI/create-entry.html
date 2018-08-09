@@ -8,9 +8,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" type="text/css" media="screen" href="assets/css/style.css" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" />
+    <link href="https://fonts.googleapis.com/css?family=Lobster" rel="stylesheet">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.1.0/css/all.css" integrity="sha384-lKuwvrZot6UHsBSfcMvOkWwlCMgc0TaWr+30HWe3a4ltaBwTZhyTEggF5tJv8tbt"
         crossorigin="anonymous">
-    <script src="assets/js/main.js"></script>
     <script src="https://cloud.tinymce.com/stable/tinymce.min.js?apiKey=92iapb5hpv4b03x6b71ddi2l0dzs9x1stzcdrt5096d34nwg"></script>
     <script>
         tinymce.init({
@@ -30,48 +30,42 @@
             height: 200
         });
     </script>
+
 </head>
 
 <body>
     <div class="topnav" id="myTopnav">
         <span class="app-name" style="float:left; padding: 1em;">
             <i class="fas fa-book-open"></i>&nbsp;Diario</span>
-        <span class="pull-right">
-            <a href="dashboard">
-                <i class="fas fa-tachometer-alt"></i>&nbsp;Dashboard</a>
-            <a href="profile">
-                <i class="fas fa-user-circle"></i>&nbsp;Profile</a>
-            <a href="index">
-                <i class="fas fa-power-off"></i>&nbsp;Logout</a>
-        </span>
-
-        <a href="javascript:void(0);" class="icon" onclick="toggle()">
-            <i class="fa fa-bars"></i>
-        </a>
     </div>
-    <div class="body">
-        <div class="grid">
-            <div class="content-wrap" style="padding-top:50px;">
-                <h1>Recent Entries</h1>
-            </div>
+
+
+    <form name="create" id="create" class="body">
+        <div class="container">
+
+            <h1>Create Entry</h1>
+            <div class="notify" id="notify"></div>
+
+            <hr>
+            <label for="title">
+                <b>Title</b>
+            </label>
+            <input type="text" placeholder="Title" name="title" id="title" required>
+
+            <label for="psw">
+                <b>Body</b>
+            </label>
+            <textarea id="body" name="body"></textarea>
+
+            <hr>
+            <button type="submit" class="registerbtn">Create Entry</button>
+
         </div>
-        <div class="wrapper">
-            <form action="create-entry" method="get">
-                <button class="btn pull-right" id="myBtn">Create new entry</button>
-            </form>
 
-        </div>
-        <div id="notify" class="notify"></div>
-        <section id="entries">
-
-        </section>
-    </div>
-
-    </div>
-
+    </form>
     <script src="assets/js/modal.js"></script>
-    <script src="assets/js/getEntries.js"></script>
-    <script src="assets/js/createEntry.js"></script>
+    <script src="assets/js/signin.js"></script>
+
 </body>
 
 </html>

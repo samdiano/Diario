@@ -83,8 +83,8 @@ class EntriesController {
       [entryId, req.user.id]
     );
     if (result.rowCount === 0) {
-      return res.status(404).json({ message: 'Entry does not exist'});
- }
+      return res.status(404).json({ message: 'Entry does not exist' });
+    }
     res.status(200).json({ message: 'Entry deleted successfully' });
   }
 }
