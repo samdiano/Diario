@@ -50,6 +50,9 @@ const routes = (app) => {
   app.get('/assets/js/createEntry.js', (req, res) => {
     res.sendFile('/assets/js/createEntry.js', { root });
   });
+  app.get('/assets/js/updateEntry.js', (req, res) => {
+    res.sendFile('/assets/js/updateEntry.js', { root });
+  });
 
   app.get('/', (req, res) => {
     res.sendFile('index.html', { root });

@@ -40,7 +40,7 @@
     </div>
 
 
-    <form name="create" id="create" class="body">
+    <form name="update" id="update" class="body">
         <div class="container">
 
             <h1>Update Entry</h1>
@@ -50,21 +50,21 @@
             <label for="title">
                 <b>Title</b>
             </label>
-            <input type="text" value="The day I had to .." placeholder="Title" name="title" id="title" required>
+            <input type="text" placeholder="Title" name="title" id="title" required>
 
             <label for="psw">
                 <b>Body</b>
             </label>
-            <textarea id="body" name="body">Lorem ipsum dolor, sit amet consectetur adipisicing elit. Perspiciatis vero qui maiores rerum incidunt at quam corporis quod, a quasi.</textarea>
+            <textarea id="body"  value="The day I had to .." name="body"></textarea>
 
             <hr>
-            <button type="submit" class="registerbtn">Create Entry</button>
+            <button type="submit" class="registerbtn">Update Entry</button>
 
         </div>
 
     </form>
-    <script src="assets/js/modal.js"></script>
-    <script src="assets/js/signin.js"></script>
+    <script src="../assets/js/modal.js"></script>
+    <script src="../assets/js/updateEntry.js"></script>
 
 </body>
 
