@@ -1,9 +1,10 @@
-const baseUrl = 'api/v1';
+const baseUrl = '../api/v1';
 
-function getEntries(e) {
+function getEntry(e) {
   e.preventDefault();
-
-  fetch(`${baseUrl}/entries/1`, {
+  const id = window.location.href.substring(30);
+  console.log(id);
+  fetch(`${baseUrl}/entries/${id}`, {
     method: 'GET',
     headers: {
       Accept: 'application/json, text/plain, */*',
@@ -11,21 +12,21 @@ function getEntries(e) {
       'x-auth-token': localStorage.token
     },
   })
-    .then(res => res.json())
-    .then((data) => {
-      console.log(data);
-      //   let entries = '<h2>Posts</h2>';
-      //   data.forEach((posts) => {
-      //     entries += `
-      //           <div>
-      //               <h3>${posts.title}</h3>
-      //               <p>${posts.body}</p>
-      //           </div>
-      //       `;
-      //   });
-      document.getElementById('entries').innerHTML = entries;
-    })
-    .catch(err => console.error(err));
+    .then(res => res.json()
+      .then((data) => {
+        let entry = document.getElementById('entry').innerHTML;
+        console.log(data);
+        data.entry.forEach((posts) => {
+          entry += `
+                  <div>
+                      <h1>${posts.title}</h1>
+                      <p>${posts.body}</p>
+                  </div>
+              `;
+        });
+        document.getElementById('entry').innerHTML = entry;
+      })
+      .catch(err => console.error(err)));
 }
 
-window.onload = getEntries;
+window.onload = getEntry;

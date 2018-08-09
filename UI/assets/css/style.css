@@ -18,7 +18,7 @@ body {
     font-size: 1.1em;
     line-height: 1.5;
     text-align: center;
-    height: 100vh ;
+    height: auto;
 }
 
 
@@ -227,7 +227,7 @@ a {
     overflow: hidden;
 }
 .cards {
-    background: rgba(221, 221, 221, 0.288);
+    background: rgba(241, 239, 239, 0.863);
     border-radius: .3em;
     margin: .5em;
     padding: 5px;

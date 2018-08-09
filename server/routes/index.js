@@ -54,6 +54,12 @@ const routes = (app) => {
   app.get('/', (req, res) => {
     res.sendFile('index.html', { root });
   });
+  app.get('/create-entry', (req, res) => {
+    res.sendFile('create-entry.html', { root });
+  });
+  app.get('/update-entry/:id', (req, res) => {
+    res.sendFile('update-entry.html', { root });
+  });
   app.get('/signup', (req, res) => {
     res.sendFile('signup.html', { root });
   });
