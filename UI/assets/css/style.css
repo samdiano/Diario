@@ -10,6 +10,18 @@ body {
     text-align: center;
 }
 
+.body {
+    margin: 0;
+    font-family: comic sans ms;
+    background: rgb(201, 221, 230);
+    color: #333;
+    font-size: 1.1em;
+    line-height: 1.5;
+    text-align: center;
+    height: 100vh ;
+}
+
+
 /* Add a black background color to the top navigation */
 .topnav {
     background-color: #2690d4;
@@ -102,7 +114,7 @@ p {
 
 /* Section A */
 #section-a {
-    background: #eaeaea;
+    background: rgb(201, 221, 230);
     color: #333;
     padding-bottom: 2em;
 }
@@ -124,10 +136,13 @@ p {
 .card-content {
     padding: 1.5em;
 }
+.card-title {
+    color: #000;
+}
 
 /* Section C */
 #section-c {
-    background: #fff;
+    background: rgb(201, 221, 230);
     color: #333;
     padding: 2em;
 }
@@ -332,12 +347,12 @@ a {
         height: auto;
     }
     .image h1, h2, h3 {
-        color: beige;
+        color: #000;
         padding-top: 2em;
     }
     .image p {
         padding: 0;
-        color: beige;
+        color: #444;
     }
     .profile-form {
         width: 60%;
