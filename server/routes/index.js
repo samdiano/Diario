@@ -53,6 +53,9 @@ const routes = (app) => {
   app.get('/assets/js/updateEntry.js', (req, res) => {
     res.sendFile('/assets/js/updateEntry.js', { root });
   });
+  app.get('/assets/js/deleteEntry.js', (req, res) => {
+    res.sendFile('/assets/js/deleteEntry.js', { root });
+  });
 
   app.get('/', (req, res) => {
     res.sendFile('index.html', { root });
@@ -77,6 +80,9 @@ const routes = (app) => {
   });
   app.get('/entries/:id', (req, res) => {
     res.sendFile('view-entry.html', { root });
+  });
+  app.get('/delete-entry/:id', (req, res) => {
+    res.sendFile('delete-entry.html', { root });
   });
 };
 
