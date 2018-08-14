@@ -56,6 +56,9 @@ const routes = (app) => {
   app.get('/assets/js/deleteEntry.js', (req, res) => {
     res.sendFile('/assets/js/deleteEntry.js', { root });
   });
+  app.get('/assets/js/profile.js', (req, res) => {
+    res.sendFile('/assets/js/profile.js', { root });
+  });
 
   app.get('/', (req, res) => {
     res.sendFile('index.html', { root });
