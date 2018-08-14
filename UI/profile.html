@@ -36,11 +36,8 @@
         </div>
 
         <section id="entries" style="display:flex;justify-content:space-around">
-            <div class="cards pull-right" style="width: 300px;">
-                <span>Number of Entries
-                    <br>
-                    <i>10</i>
-                </span>
+            <div class="cards pull-right" id="count" style="width: 300px;">
+                
             </div>
             <div class="cards pull-right" style="width: 300px; ">
                 <span>Set Reminder
@@ -56,24 +53,24 @@
                 <label for="email">
                     <span>Email</span>
                 </label>
-                <input type="text" placeholder="Enter Email" value="sam@gmail.com" name="email" required>
+                <input type="text" placeholder="Enter Email" name="email" id="email" required>
 
                 <label for="name">
                     <span>Full Name</span>
                 </label>
-                <input type="text" placeholder="Enter Name" value="Samuel George" name="name" required>
+                <input type="text" placeholder="Enter Name" name="fname" id="fname" required>
 
                 <label for="psw">
                     <span>Password</span>
                 </label>
-                <input type="password" placeholder="Enter Password" value="password" name="pass" required>
+                <input type="password" placeholder="Enter Password" name="password" id="password" required>
 
                 <button type="submit" class="registerbtn">Update Details</button>
             </div>
         </form>
     </div>
 
-
+    <script src="assets/js/profile.js"></script>
 </body>
 
 </html>
