@@ -58,7 +58,7 @@ const updateEntry = (e) => {
       .then((data) => {
         console.log(data);
         console.log(body);
-        if (res.status !== 201) {
+        if (res.status !== 200) {
           notify.style.display = 'block';
           notify.style.background = 'hotpink';
           notify.innerHTML = 'Please fill all fields correctly';
