@@ -61,7 +61,7 @@ class UsersController {
     );
     const token = jwt.sign({ id: result[0].id }, 'oiraid', { expiresIn: 86400 });
     res.header('x-auth-token', token).status(201).json({
-      users: result[0], message: 'Inserted one user'
+      users: result[0], message: 'Account created successfully'
     });
   }
   static async getUser(req, res) {
@@ -73,7 +73,7 @@ class UsersController {
       user, message: 'User details retrieved successfully '
     });
   }
-  // modify fields in an entry
+  // modify user details
   static async updateUser(req, res) {
     const { error } = validateUser(req.body);
     if (error) {
@@ -81,11 +81,9 @@ class UsersController {
         message: error.details[0].message
       });
     }
-    const salt = await bcrypt.genSalt(10);
-    req.body.password = await bcrypt.hash(req.body.password, salt);
     await db.result(
-      'update users set full_name=$1, password=$2 where id=$3',
-      [req.body.full_name, req.body.password, req.user.id]
+      'update users set full_name=$1, email=$2 where id=$3',
+      [req.body.full_name, req.body.email, req.user.id]
     );
     res.status(200).json({
       message: 'Profile updated successfully'

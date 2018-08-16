@@ -22,7 +22,7 @@ describe('Users', () => {
       .end((err, res) => {
         expect(res.status).to.equal(201);
         expect(res.body).to.have.property('users');
-        expect(res.body).to.have.property('message').equal('Inserted one user');
+        expect(res.body).to.have.property('message').equal('Account created successfully');
         done();
       });
   });
@@ -105,7 +105,7 @@ describe('Users', () => {
       .set('x-auth-token', token)
       .send({
         full_name: 'The school of Law ....',
-        password: 'passwords'
+        email: 'sammyg@sammmsam.com'
       })
       .end((err, res) => {
         expect(res.status).to.equal(200);
