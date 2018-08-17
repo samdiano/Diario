@@ -100,17 +100,17 @@ class UsersController {
     }
     await db.any(
       'update users set reminder=$1 where id=$2',
-      [req.body.date, req.user.id]
+      [req.body.remind, req.user.id]
     );
-    res.status(201).json({ message: 'Reminder set succesfully' });
+    res.status(200).json({ message: 'Reminder set succesfully' });
   }
   // get reminder time
   static async getReminder(req, res) {
     const time = await db.any('SELECT reminder FROM users where id = $1', req.user.id);
-    if (time === null) {
-      return res.status(404).json({ message: 'No time posted yet' });
+    if (time[0].reminder === false) {
+      res.status(404).json({ time, message: 'No reminder set' });
     }
-    res.status(200).json({ time, message: 'Retrieved reminder time' });
+    res.status(200).json({ time, message: 'Reminder active' });
   }
 }
 

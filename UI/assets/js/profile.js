@@ -37,13 +37,35 @@ function getProfile(e) {
         console.log(data);
         if (res.status === 200) {
           count += `
-                <span>Number of Entries
+                <span><b>Number of Entries</b>
                     <br>
                     <i>${data.entries.length}</i>
                 </span>
                 `;
         }
         document.getElementById('count').innerHTML = count;
+      })
+      .catch(err => console.error(err)));
+
+  fetch(`${baseUrl}/reminder/`, {
+    method: 'GET',
+    headers: {
+      Accept: 'application/json, text/plain, */*',
+      'Content-type': 'application/json',
+      'x-auth-token': localStorage.token
+    },
+  })
+    .then(res => res.json()
+      .then((data) => {
+        const check = document.getElementById('check');
+        const activate = document.getElementById('activate');
+        console.log(data);
+        if (res.status === 200) {
+          activate.innerHTML = '<small><i>Deactivate Reminder</i></small';
+          check.setAttribute('checked', 'true');
+        } else {
+          activate.innerHTML = '<small><i>Activate Reminder</i></small>';
+        }
       })
       .catch(err => console.error(err)));
 }
@@ -82,12 +104,56 @@ const updateProfile = (e) => {
           notify.style.display = 'block';
           notify.innerHTML = 'Profile updated successfully';
           setTimeout(() => {
-            window.location.replace('home');
+            window.location.replace('profile');
+          }, 2000);
+        }
+      })
+      .catch(err => console.error(err)));
+};
+document.getElementById('update').addEventListener('change', updateProfile);
+
+
+const updateReminder = (e) => {
+  e.preventDefault();
+  const check = document.getElementById('check');
+  let remind;
+  if (check.checked) {
+    remind = true;
+  } else {
+    remind = false;
+  }
+  fetch(`${baseUrl}/reminder`, {
+    method: 'PUT',
+    body: JSON.stringify({
+      remind,
+    }),
+    headers: {
+      Accept: 'application/json, text/plain, */*',
+      'Content-type': 'application/json',
+      'x-auth-token': localStorage.token
+    },
+  })
+    .then(res => res.json()
+      .then((data) => {
+        console.log(data);
+        if (res.status !== 200) {
+          notify.style.display = 'block';
+          notify.style.background = 'hotpink';
+          notify.innerHTML = 'something went wrong';
+          setInterval(() => {
+            notify.style.display = 'none';
+          }, 2000);
+        } else {
+          notify.style.background = 'rgb(106, 197, 106)';
+          notify.style.display = 'block';
+          notify.innerHTML = 'Reminder status updated successfully';
+          setTimeout(() => {
+            window.location.replace('profile');
           }, 2000);
         }
       })
       .catch(err => console.error(err)));
 };
 
-document.getElementById('update').addEventListener('submit', updateProfile);
+document.getElementById('check').addEventListener('change', updateReminder);
 
