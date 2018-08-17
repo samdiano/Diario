@@ -19,6 +19,14 @@ const getEntries = (e) => {
         console.log(data);
         console.log(res.status);
         let entries = document.getElementById('entries').innerHTML;
+        if (res.status === 401 || res.status === 400) {
+          notify.style.background = 'rgb(106, 197, 106)';
+          notify.style.display = 'block';
+          notify.innerHTML = 'You must be logged in to view this page';
+          setTimeout(() => {
+            window.location.replace('login');
+          }, 2000);
+        }
         if (res.status === 200) {
           data.entries.forEach((entry) => {
             entries += `
@@ -48,7 +56,8 @@ const getEntries = (e) => {
         </div>
             `;
           });
-        } else {
+        }
+        if (res.status === 404) {
           notify.style.display = 'block';
           notify.style.background = 'hotpink';
           notify.innerHTML = 'You do not have an entry yet';

@@ -17,6 +17,14 @@ function deleteEntry(e) {
       .then((data) => {
         const notify = document.getElementById('notify');
         console.log(data);
+        if (res.status === 401 || res.status === 400) {
+          notify.style.background = 'rgb(106, 197, 106)';
+          notify.style.display = 'block';
+          notify.innerHTML = 'You must be logged in to view this page';
+          setTimeout(() => {
+            window.location.replace('login');
+          }, 2000);
+        }
         if (res.status === 200) {
           notify.style.background = 'rgb(106, 197, 106)';
           notify.style.display = 'block';

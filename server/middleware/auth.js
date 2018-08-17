@@ -9,6 +9,6 @@ export default (req, res, next) => {
     req.user = decoded;
     next();
   } catch (exception) {
-    res.status(400).json({ message: 'Invalid token'});
+    res.status(400).json({ message: 'Invalid token' });
   }
 };
