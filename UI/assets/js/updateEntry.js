@@ -58,6 +58,14 @@ const updateEntry = (e) => {
       .then((data) => {
         console.log(data);
         console.log(body);
+        if (res.status === 401) {
+          notify.style.background = 'rgb(106, 197, 106)';
+          notify.style.display = 'block';
+          notify.innerHTML = 'You must be logged in to view this page';
+          setTimeout(() => {
+            window.location.replace('login');
+          }, 2000);
+        }
         if (res.status !== 200) {
           notify.style.display = 'block';
           notify.style.background = 'hotpink';
