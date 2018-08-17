@@ -4,6 +4,7 @@ import db from '../middleware/connectdb';
 import validateSignIn from '../helpers/validateSignIn';
 import validateSignUp from '../helpers/validateSignup';
 import validateUser from '../helpers/validateUser';
+import validateReminder from '../helpers/validateReminder';
 
 class UsersController {
   // Sign in user
@@ -88,6 +89,28 @@ class UsersController {
     res.status(200).json({
       message: 'Profile updated successfully'
     });
+  }
+  // Set Reminder
+  static async setReminder(req, res) {
+    const { error } = validateReminder(req.body);
+    if (error) {
+      return res.status(400).json({
+        message: error.details[0].message
+      });
+    }
+    await db.any(
+      'update users set reminder=$1 where id=$2',
+      [req.body.date, req.user.id]
+    );
+    res.status(201).json({ message: 'Reminder set succesfully' });
+  }
+  // get reminder time
+  static async getReminder(req, res) {
+    const time = await db.any('SELECT reminder FROM users where id = $1', req.user.id);
+    if (time === null) {
+      return res.status(404).json({ message: 'No time posted yet' });
+    }
+    res.status(200).json({ time, message: 'Retrieved reminder time' });
   }
 }
 
