@@ -113,4 +113,52 @@ describe('Users', () => {
         done();
       });
   });
+  it('Should not update user with bad request', (done) => {
+    chai.request(server)
+      .put('/api/v1/profile')
+      .set('x-auth-token', token)
+      .send({
+        full_names: 'The school of Law ....',
+        email: 'sammyg@sammmsam.com'
+      })
+      .end((err, res) => {
+        expect(res.status).to.equal(400);
+        done();
+      });
+  });
+  it('Should set notification', (done) => {
+    chai.request(server)
+      .put('/api/v1/reminder')
+      .set('x-auth-token', token)
+      .send({
+        remind: true
+      })
+      .end((err, res) => {
+        expect(res.status).to.equal(200);
+        expect(res.body.message).to.equal('Reminder set succesfully');
+        done();
+      });
+  });
+  it('Should not set notification with bad request', (done) => {
+    chai.request(server)
+      .put('/api/v1/reminder')
+      .set('x-auth-token', token)
+      .send({
+        remind: 'today'
+      })
+      .end((err, res) => {
+        expect(res.status).to.equal(400);
+        done();
+      });
+  });
+  it('Should get notification status', (done) => {
+    chai.request(server)
+      .get('/api/v1/reminder')
+      .set('x-auth-token', token)
+      .end((err, res) => {
+        expect(res.status).to.equal(200);
+        expect(res.body.message).to.equal('Reminder active');
+        done();
+      });
+  });
 });
