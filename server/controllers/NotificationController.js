@@ -11,12 +11,12 @@ async function getReminder() {
     return console.log('no reminders set');
   }
   remind.forEach((rem) => {
-    const j = schedule.scheduleJob({ hour: 13, minute: 57 }, () => {
+    const j = schedule.scheduleJob({ hour: 17, minute: 0 }, () => {
       console.log(rem);
-      sgMail.setApiKey('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');
+      sgMail.setApiKey(process.env.mail_pass);
       const msg = {
         to: rem.email,
-        from: 'Diario@diario.herokuapp.com',
+        from: 'Diario@mi-diario.herokuapp.com',
         subject: 'How was your day today?',
         text: 'This is a quick email to remind you to write in your Diario Journal! Click the button below to start a new entry.',
         html: `

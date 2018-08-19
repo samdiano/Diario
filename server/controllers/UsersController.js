@@ -25,7 +25,7 @@ class UsersController {
       });
     }
 
-    const token = jwt.sign({ id: user[0].id }, 'oiraid', { expiresIn: 86400 });
+    const token = jwt.sign({ id: user[0].id }, process.env.jwt_key, { expiresIn: 86400 });
     res.header('x-auth-token', token).status(200).json({
       user: user[0].full_name, message: 'Login succesful'
     });
@@ -60,7 +60,7 @@ class UsersController {
       'SELECT id, email, created_at FROM users where email = $1',
       req.body.email
     );
-    const token = jwt.sign({ id: result[0].id }, 'oiraid', { expiresIn: 86400 });
+    const token = jwt.sign({ id: result[0].id }, process.env.jwt_key, { expiresIn: 86400 });
     res.header('x-auth-token', token).status(201).json({
       users: result[0], message: 'Account created successfully'
     });
