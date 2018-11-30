@@ -14,7 +14,12 @@ const apiDoc = YAML.load(`${process.cwd()}/swagger.yaml`);
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(apiDoc));
 
 
-app.use(cors());
+const corsOptions = {
+  exposedHeaders: 'Authorization',
+};
+
+app.use(cors(corsOptions));
+
 // log every request to
 app.use(morgan('tiny'));
 
