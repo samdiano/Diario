@@ -27,7 +27,7 @@ class UsersController {
 
     const token = jwt.sign({ id: user[0].id }, process.env.jwt_key, { expiresIn: 86400 });
     res.header('x-auth-token', token).status(200).json({
-      user: user[0].full_name, message: 'Login succesful'
+      user: user[0].full_name, message: 'Login succesful', token
     });
   }
   // Sign up user
