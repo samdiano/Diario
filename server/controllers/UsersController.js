@@ -62,7 +62,7 @@ class UsersController {
     );
     const token = jwt.sign({ id: result[0].id }, process.env.jwt_key, { expiresIn: 86400 });
     res.header('x-auth-token', token).status(201).json({
-      users: result[0], message: 'Account created successfully'
+      users: result[0], message: 'Account created successfully', token
     });
   }
   static async getUser(req, res) {
