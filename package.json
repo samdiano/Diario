@@ -13,9 +13,9 @@
   "scripts": {
     "start": "export NODE_ENV=production && node server/dist/app.js | npm run mailer",
     "clean": "rm -rf server/dist/ && mkdir server/dist/",
-    "heroku-postbuild": "npm run build",
+    "heroku-postbuild": "yarn build",
     "start-dev": "nodemon server/app.js --exec babel-node",
-    "build": "npm run clean && babel server -d server/dist --ignore server/dist",
+    "build": "yarn clean && babel server -d server/dist --ignore server/dist",
     "mailer": "cross-env NODE_ENV=development babel-node server/controllers/NotificationController.js",
     "dev-server": " cross-env NODE_ENV=development nodemon --exec babel-node app.js  ",
     "coverage": "nyc report --reporter=text-lcov | coveralls",
